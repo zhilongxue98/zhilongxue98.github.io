@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /blob/
+Disallow: /tree/
+Disallow: /raw/
