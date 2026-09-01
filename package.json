@@ -1,0 +1,12 @@
+{
+  "name": "zhilongxue-academic-homepage",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "8.2.2"
+  }
+}
