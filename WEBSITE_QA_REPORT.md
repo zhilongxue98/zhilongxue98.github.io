@@ -1,151 +1,66 @@
-# Website QA Report
+# Website QA Report — Two-page edition
 
-Date: 1 September 2026  
-Result: **PASS**
+Checked: 2026-11-02. Source baseline: GitHub main, commit `7ae478df1a1c03f28d8ac8f25cd8e4bfb5054305`.
 
-## 1. QA basis
+## Scope and result
 
-The academic fact baseline was the supplied August 2026 `CV_zhilong.tex`.
-The previous public website and the public GitHub repository at commit
-`4fc5e18` were inspected before implementation.
+The delivered source has two content pages, Home and Research & CV. The old `cv.html` and `talks.html` files contain only compatibility redirects. Checks were run against the locally prepared package, not a new production deployment. No GitHub push or public deployment was performed.
 
-The named `Zhilong_homepage_redesign_Work_guide_zh.md` was not present in the
-local project snapshot and could not be resolved by exact project-file search.
-The detailed constraints reproduced in the launch request were therefore used
-as the authoritative execution checklist. No additional redesign decisions
-were recovered from prior-conversation search.
+## Responsive layout
 
-## 2. Academic fact audit
+The pages were rendered in Chrome through the supervised preview. Same-origin frames supplied exact CSS layout viewports of 375×812, 768×1024 and 1440×900; measurements and visual inspection were performed for both pages. This tests responsive layout rather than emulating every mobile device or browser.
 
-| Area | CV baseline | Focused HTML | Full CV PDF |
-| --- | ---: | ---: | ---: |
-| Publications and preprints | 6 | 4 representative | 6 |
-| Employment entries | 1 | Current role on Home only | 1 |
-| Education entries | 2 | 2 on CV page | 2 |
-| Research stays | 2 | 2 on CV page | 2 |
-| Invited talks | 4 | 4 | 4 |
-| Selected conferences | 9 | 4 recent | 9 |
-| Funding entries | 2 | Omitted | 2 |
+| Page | Layout viewport | Document height | Horizontal overflow | Result |
+| --- | --- | --- | --- | --- |
+| Home | 375×812 | 1347 px | None | Text and photograph retained; natural vertical scrolling. |
+| Research & CV | 375×812 | 1211 px | None | CV access and selected work precede research interests; natural vertical scrolling. |
+| Home | 768×1024 | 1024 px | None | Fits the tested viewport. |
+| Research & CV | 768×1024 | 1024 px | None | Fits the tested viewport. |
+| Home | 1440×900 | 900 px | None | Fits the tested viewport. |
+| Research & CV | 1440×900 | 900 px | None | Fits the tested viewport. |
 
-No unsupported talk title, publication status, research project, award, or
-employment claim was added. The HTML pages and public CV exclude date of birth,
-nationality, and the CSC identifier.
+At the narrow width, the desktop test browser reserves 15 px for a vertical scrollbar; the measured content width is therefore 360 px. No content extends beyond it. Content is not clipped to force a one-screen mobile presentation.
 
-## 3. Publication link audit
+## Navigation and old addresses
 
-| Publication | arXiv | PDF | Journal | DOI | BibTeX |
-| --- | --- | --- | --- | --- | --- |
-| Xue–Zhan, 2026 | 2608.19627 | Verified | — | — | Local file present |
-| Tan–Xue–Xue, 2025 | 2510.18759 | Verified | — | — | Local file present |
-| Hmidi–Xue–Xue, Calc. Var. 2026 | 2504.08143 | Verified | Springer | 10.1007/s00526-026-03295-4 | Local file present |
-| Miao–Tan–Xue–Xue, 2024 | 2410.19273 | Verified | — | — | Local file present |
-| Hmidi–Xue–Xue, Adv. Math. 2026 | 2312.02874 | Verified | Elsevier | 10.1016/j.aim.2025.110750 | Local file present |
-| Hmidi–Xue–Xue, JFA 2023 | 2210.08760 | Verified | Elsevier | 10.1016/j.jfa.2023.110142 | Local file present |
+- Both primary navigation menus contain exactly Home and Research & CV, with the correct active-page indication.
+- Mobile Menu opens correctly; Escape closes it; the Home link navigates successfully.
+- Both old addresses were actually opened in the browser and redirected to `research.html#cv`.
+- Redirect files use HTML refresh, a canonical URL, `noindex, follow`, and a visible fallback link. They do not depend on JavaScript or need future content updates.
+- All 21 local file/fragment references in the four HTML files resolve to existing files or anchor IDs. HTML nesting and unique IDs pass the static checks.
+- The existing navigation script passes Node's syntax check and is unchanged.
 
-All twelve arXiv abstract/PDF endpoints returned HTTP 200 during the final
-link check. The three journal records and DOI values were matched against the
-official Springer or Elsevier record. The static local-link audit found zero
-missing HTML, CSS, JavaScript, image, PDF, anchor, or BibTeX targets.
+## CV
 
-## 4. Responsive and visual QA
+- Public PDF compiled successfully with two pdfLaTeX passes; two A4 pages. No LaTeX warnings, overfull boxes or missing characters were reported.
+- Both pages were rendered and visually inspected; no clipping, overlap, missing glyphs or broken section placement was found.
+- All seven numbered publications/preprints and the new Shandong University talk are present.
+- Public TeX differs from the supplied file only by omission of the CSC identifier. Academic information and the original uploaded file were not otherwise changed.
+- View CV was clicked and opened the correct two-page PDF in a new browser tab; its title and displayed contents were checked.
+- Download PDF points to the same existing PDF, with the standard HTML `download` attribute and a descriptive filename. The test browser did not return a download-completion event, so automated confirmation of a saved download is not claimed. This does not affect the successfully verified online PDF viewer; deployment should be followed by a normal-browser download click.
 
-The focused architecture was rendered in isolated exact-size viewports. Both
-1366 × 768 and 1440 × 768 laptop viewports were used as one-screen acceptance
-tests for the final Home and Talks stabilization.
+## Selected-paper links and bibliographic accuracy
 
-| Page | Content allocation | Width | Height | Scroll required |
-| --- | --- | ---: | ---: | --- |
-| Home | Identity, PhD, research orientation, portrait, contact, News | 1440 px | 768 px | No |
-| Research | Fluid/vortex/kinetic themes, four representative papers | 1440 px | 768 px | No |
-| CV | Education, research visits, and complete-CV access | 1440 px | 768 px | No |
-| Talks & Activities | Four invited talks, four recent meetings | 1440 px | 768 px | No |
+| Work | Checks |
+| --- | --- |
+| Li–Nguyen–Xue, pointwise wave-damping | arXiv abstract HTTP 200; exact authors/title checked; PDF HTTP 200 with PDF signature; local BibTeX present. |
+| Xue–Zhan, rotating patches with genuine holes | arXiv abstract HTTP 200; authors/title checked; PDF HTTP 200 with PDF signature; local BibTeX present. |
+| Tan–Xue–Xue, Loglog–Euler | arXiv abstract HTTP 200; authors/title checked; PDF HTTP 200 with PDF signature; local BibTeX updated. “To appear” status follows the author-supplied CV, not an inferred status from arXiv. |
+| Hmidi–Xue–Xue, unified V-states theory | DOI resolved with HTTP 200; arXiv PDF HTTP 200 with PDF signature; Crossref confirms the title, Advances in Mathematics volume 486, article 110750 and 2026 publication year; local BibTeX present. |
 
-Additional final-fit measurements:
+No unverified journal volume, page range or DOI was added to the accepted Loglog–Euler paper. Complete publication information remains in the author CV; the website is deliberately a selection.
 
-| Page | Viewport | Document size | Vertical overflow | Horizontal overflow |
-| --- | ---: | ---: | ---: | ---: |
-| Home | 1366 × 768 | 1366 × 768 | 0 px | 0 px |
-| Talks & Activities | 1366 × 768 | 1366 × 768 | 0 px | 0 px |
-| Home | 1440 × 768 | 1440 × 768 | 0 px | 0 px |
-| Talks & Activities | 1440 × 768 | 1440 × 768 | 0 px | 0 px |
+## SEO and GitHub Pages
 
-For every desktop page, `clientWidth`, `scrollWidth`, `clientHeight`, and
-`scrollHeight` matched exactly at 1440 × 768. All four footers remained visible
-without scrolling. The four pages were also visually inspected at 1363 × 936;
-no clipped text, overlap, broken image, or unintended animation was observed.
+- Each content page has one H1, a description, canonical URL, title and Open Graph metadata. Research metadata uses “Research & CV”.
+- Person structured data points to the photograph already displayed on Home.
+- The sitemap contains only the Home and Research URLs; robots.txt is unchanged.
+- Exactly one visible “Last updated” notice remains, in research.html. Home and the redirect files have none.
+- CNAME is byte-identical to the repository baseline: www.zhilongxue.cn.
+- The existing photograph is byte-identical and its crop is unchanged.
+- The package includes HTML/CSS/JavaScript, local photo assets, PDF, BibTeX files, TeX source and `.nojekyll`. It can be served directly from the existing GitHub Pages root; optional Vite preview files do not introduce a production build requirement.
+- Browser-preview scaffolding, Git metadata, build logs and temporary files are excluded from the replacement ZIP.
 
-The two Home biography paragraphs were inspected through their computed
-styles at both desktop acceptance widths. Each resolves to the same 16 px font
-size, 23.68 px line height, 400 weight, and serif font stack.
+## After upload
 
-The final horizontal-containment regression checked the content shell, header,
-footer, and all visible descendants on every page. At 1366 px, all three shared
-containers occupy the same centered interval, 107–1259 px; at 1440 px they
-occupy 144–1296 px. The page shell remains 1152 px wide, alignment deltas are
-0 px, and no child extends beyond either edge. The 375 px Home render likewise
-keeps its header, body, and footer aligned within the same 16–344 px interval.
-
-Responsive regression checks also passed: the 375 × 900 Home render had
-matching 360 px client/scroll widths, and the 768 × 900 Talks render had
-matching 768 px client/scroll widths and fit without vertical scrolling. The
-mobile Home page is intentionally single-column and therefore longer, but
-introduces no horizontal overflow. Mobile navigation remains active at both
-widths.
-
-## 5. Navigation and interaction QA
-
-- All four pages contain all four primary navigation destinations.
-- Each page has exactly one correct `aria-current="page"` marker.
-- Desktop navigation renders as a single horizontal row.
-- At 375 px and 768 px the navigation collapses to the Menu control.
-- The mobile Menu changes `aria-expanded` from `false` to `true` and exposes all
-  four destinations in a one-column list at 375 px.
-- A rendered Home → Research navigation test reached the correct Research H1.
-- Escape-to-close and wide-screen resize cleanup are implemented in the shared
-  navigation script.
-
-## 6. CV and PDF QA
-
-- `CV_zhilong.pdf` rebuilt successfully from `CV_zhilong.tex` in two LaTeX
-  passes.
-- PDF metadata: title `Zhilong Xue — Curriculum Vitae`; author `Zhilong Xue`.
-- PDF structure: 2 pages, US Letter, unencrypted, no JavaScript.
-- Both pages were rendered to PNG at 150 dpi and visually inspected.
-- Result: no clipped text, overflow, overlap, missing glyph, broken rule, or
-  awkward section split.
-- Text extraction confirms all six publications, four talks, nine conferences,
-  and two funding entries.
-- Text extraction confirms that date of birth, nationality, and CSC identifier
-  do not appear.
-- The CV page contains direct view/download actions; the PDF URL loaded
-  successfully in the live preview.
-
-## 7. SEO and GitHub Pages QA
-
-- Unique `<title>` and meta description: PASS on all four pages.
-- `viewport`, `robots`, `author`, canonical URL, and Open Graph text fields:
-  PASS on all four pages.
-- Homepage Person JSON-LD: PASS.
-- `robots.txt` and `sitemap.xml`: PASS.
-- `CNAME`: preserved as `www.zhilongxue.cn`.
-- Relative asset paths: PASS for GitHub Pages and the custom domain.
-- No framework or production build step is required.
-- Optional local preview configuration is isolated from production delivery;
-  `node_modules/` is ignored.
-
-## 8. Static validation summary
-
-- HTML pages parsed: 4
-- Duplicate IDs: 0
-- Missing local links: 0
-- Missing fragment anchors: 0
-- Missing required metadata fields: 0
-- Page-origin console errors during navigation: 0
-- JavaScript syntax check: PASS
-- PDF render check: PASS
-
-## 9. Deployment note
-
-The source is ready to deploy from the repository root through GitHub Pages.
-The public domain will continue to use `www.zhilongxue.cn` because the existing
-`CNAME` was retained.
+Wait for the existing GitHub Pages deployment to finish. Confirm the two navigation items, open the CV, click Download PDF in your regular browser, and try one old CV/Talks bookmark. Public deployment and DNS were not changed during this packaging task.

@@ -1,5 +1,27 @@
 # Website Redesign Changelog
 
+## 2026-11-02 — Two-page maintenance update
+
+Baseline: GitHub main, commit `7ae478df1a1c03f28d8ac8f25cd8e4bfb5054305`.
+Academic source: the author-supplied `CV_Zhilong_Xue_EN_v6(1).tex`.
+
+- Reduced the site to two content pages: Home and Research & CV. Kept the established typography, colors, photograph, layout, and static GitHub Pages setup.
+- Preserved Home's academic text, contact details, photograph bytes and crop. Removed the duplicated update notice; changed the dated “Upcoming talk” label to “News” without altering the event text or link. Corrected the structured-data image URL to the photograph already displayed.
+- Moved View CV and Download PDF to the top of Research & CV. Both use the stable `CV_zhilong.pdf` filename; no page-count or edition label needs future maintenance.
+- Compiled the latest author CV into a two-page PDF with seven publication/preprint entries. Omitted only the CSC identifier in the public TeX/PDF, following the earlier privacy preference. Kept all other supplied CV content unchanged.
+- Kept four representative works: added the Li–Nguyen–Xue Vlasov–Poisson preprint, retained the rotating-patch and unified V-states works, and updated the Loglog–Euler item to “to appear in Revista Matemática Iberoamericana” according to the author CV. The doubly connected V-states paper remains in the full CV.
+- Added the new preprint BibTeX and updated the Loglog–Euler BibTeX. Did not invent volume, page or DOI details for the accepted paper.
+- Consolidated research interests into the two areas stated in the current CV.
+- On small screens, placed CV access and selected work before research interests; retained the two-column desktop composition.
+- Replaced old CV and Talks pages with static noindex redirects to the new CV section. This lets a simple upload overwrite stale content and preserves existing bookmarks.
+- Kept one update notice, in the Research & CV footer. Limited the sitemap to the two content pages.
+- Preserved CNAME, robots.txt, the photograph, and the navigation script byte for byte. Added `.nojekyll` for direct static serving.
+- Added a Chinese upload and maintenance guide. No framework, database, runtime content fetch, or build requirement was introduced.
+
+## Earlier history
+
+The entries below describe earlier versions, including the former four-page site.
+
 Date: 1 September 2026  
 Target: `https://www.zhilongxue.cn/`
 
